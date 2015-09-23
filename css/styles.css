@@ -1,0 +1,27 @@
+/*div {
+
+
+}*/
+
+#logo {
+  width: 50%;
+}
+
+.center {
+  text-align: center;
+}
+
+#addPlayers {
+  width: 50%;
+  text-align: center;
+}
+
+#gameBoard{
+  display:none;
+}
+
+.box{
+  height:100px;
+  width:100px;
+  border: 2px solid black;
+}
