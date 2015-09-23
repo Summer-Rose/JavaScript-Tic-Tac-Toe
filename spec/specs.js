@@ -12,36 +12,36 @@ describe('Player', function() {
   it("returns the winner correctlty when all xs same", function() {
     var board = new Board(Space,9);
     var player1 = new Player ("Perry", "X", []);
-    player1.addSpace([1,1]);
-    player1.addSpace([1,2]);
-    player1.addSpace([1,3]);
+    player1.addSpace(1,1);
+    player1.addSpace(1,2);
+    player1.addSpace(1,3);
     expect(player1.isWinner(board)).to.equal(true);
   });
 
   it("returns false when xs are different", function() {
     var board = new Board(Space,9);
     var player1 = new Player ("Perry", "X", []);
-    player1.addSpace([2,1]);
-    player1.addSpace([1,2]);
-    player1.addSpace([1,3]);
+    player1.addSpace(2,1);
+    player1.addSpace(1,2);
+    player1.addSpace(1,3);
     expect(player1.isWinner(board)).to.equal(false);
   });
 
   it("returns true when ys are same", function() {
     var board = new Board(Space,9);
     var player1 = new Player ("Perry", "X", []);
-    player1.addSpace([2,1]);
-    player1.addSpace([1,1]);
-    player1.addSpace([3,1]);
+    player1.addSpace(2,1);
+    player1.addSpace(1,1);
+    player1.addSpace(3,1);
     expect(player1.isWinner(board)).to.equal(true);
   });
 
   it("returns true when xs and ys are same", function() {
     var board = new Board(Space,9);
     var player1 = new Player ("Perry", "X", []);
-    player1.addSpace([1,1]);
-    player1.addSpace([2,2]);
-    player1.addSpace([3,3]);
+    player1.addSpace(1,1);
+    player1.addSpace(2,2);
+    player1.addSpace(3,3);
     expect(player1.isWinner(board)).to.equal(true);
   });
 });
@@ -55,8 +55,8 @@ describe('Space', function() {
 
   it("adds spaces to list of spaces played by player", function() {
     var player1 = new Player ("Perry", "X", []);
-    player1.addSpace([1,1]);
-    expect(player1.spacesTaken[0]).to.equal([1,1]);
+    player1.addSpace(1,1);
+    expect(player1.spacesTaken[0]).to.eql([1,1]);
   });
 });
 
@@ -78,7 +78,7 @@ describe('Game', function() {
     var board = new Board(Space,9);
     var player1 = new Player("Perry", "X");
     var player2 = new Player("Summer", "O");
-    var newGame = new Game(board, player1, player2);
+    var newGame = new Game(board, player1, player2, player1);
     expect(newGame.board).to.have.length(9);
   });
 
@@ -86,7 +86,7 @@ describe('Game', function() {
     var board = new Board();
     var player1 = new Player("Perry", "X");
     var player2 = new Player("Summer", "O");
-    var newGame = new Game(board, player1, player2);
+    var newGame = new Game(board, player1, player2, player1);
     expect(newGame.player1.name).to.equal("Perry");
   });
 
@@ -94,7 +94,16 @@ describe('Game', function() {
     var board = new Board();
     var player1 = new Player("Perry", "X");
     var player2 = new Player("Summer", "O");
-    var newGame = new Game(board, player1, player2);
+    var newGame = new Game(board, player1, player2, player1);
     expect(newGame.player2.mark).to.equal("O");
+  });
+
+  it("switches the player correctly", function() {
+    var board = new Board();
+    var player1 = new Player("Perry", "X");
+    var player2 = new Player("Summer", "O");
+    var newGame = new Game(board, player1, player2, player1);
+    newGame.switchPlayer();
+    expect(newGame.currentPlayer).to.equal(player2);
   });
 });
