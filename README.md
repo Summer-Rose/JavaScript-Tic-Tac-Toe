@@ -1,12 +1,14 @@
-# Project Name
+# Tic Tac Toe
 
-##### _Project Purpose, date 2015_
+##### _Epicodus Week 7 - JavaScript Week 2 Class Assignment, 23 September 2015_
 
-#### By **Names**
+#### By **Perry Eising & Summer Brochtrup**
 
 ## Description
 
-Description goes here
+A javaScript based version of the classic game tic tac toe. Players can take turns to place X's and O's on the grid, and the first player who places their mark in a line across the board, wins!
+
+
 
 ## Setup
 
@@ -20,10 +22,13 @@ Description goes here
 * jQuery
 * Mocha
 * Chai
+* HTML
+* CSS
+* Bootstrap
 
 ### Legal
 
-Copyright (c) 2015 **NAMES**
+Copyright (c) 2015 **Perry Eising & Summer Brochtrup**
 
 This software is licensed under the MIT license.
 
