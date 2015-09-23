@@ -56,7 +56,7 @@ describe('Space', function() {
   it("adds spaces to list of spaces played by player", function() {
     var player1 = new Player ("Perry", "X", []);
     player1.addSpace([1,1]);
-    expect(player1.spacesTaken[0]).to.eql([1,1]);
+    expect(player1.spacesTaken[0]).to.equal([1,1]);
   });
 });
 
