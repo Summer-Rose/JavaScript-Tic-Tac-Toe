@@ -23,6 +23,14 @@
 .box{
   height:100px;
   width:100px;
-  border: 2px solid black;
-  cursor:pointer; 
+  border: 1px solid black;
+  cursor:pointer;
+  margin:2px;
+  border-radius:5px;
+
+}
+
+.symbol{
+  font-size:7rem;
+  cursor:not-allowed; 
 }
