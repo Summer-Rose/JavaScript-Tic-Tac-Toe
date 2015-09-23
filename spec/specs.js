@@ -11,36 +11,40 @@ describe('Player', function() {
 });
 
 describe('Space', function() {
-  it("initially returns its id", function() {
-    var space1 = new Space(1, 0);
-    expect(space1.id).to.equal(1);
+  it("returns correct coordinates", function() {
+    var space1 = new Space(1,1,0);
+    expect(space1.coordinateX).to.equal(1);
+    expect(space1.coordinateY).to.equal(1);
   });
 
   it("returns which player the space is marked by", function() {
-    var space1 = new Space(1, 0);
+    var space1 = new Space(1,1,0);
     expect(space1.player).to.equal(0);
   });
+
   it("returns which player the space is marked by", function() {
-    var space1 = new Space(1, 1);
+    var space1 = new Space(1,1,1);
     expect(space1.player).to.equal(1);
   });
 });
 
 describe('Board', function() {
   it("initially creates board of nine empty spaces", function() {
-    var board = new Board();
+    var board = new Board(Space, 9);
     expect(board).to.have.length(9);
   });
 
   it("returns the correct space", function() {
-    var board = new Board();
-    expect(board[1]).to.eql([2,0]);
+    var board = new Board(Space,9);
+    expect(board[0].coordinateX).to.equal(1);
+    expect(board[0].coordinateY).to.equal(1);
+    expect(board[0].player).to.equal(0);
   });
 });
 
 describe('Game', function() {
   it("initially creates an empty board and two players", function() {
-    var board = new Board();
+    var board = new Board(Space,9);
     var player1 = new Player("Perry", "X");
     var player2 = new Player("Summer", "O");
     var newGame = new Game(board, player1, player2);
