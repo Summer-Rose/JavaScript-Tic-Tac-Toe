@@ -8,6 +8,42 @@ describe('Player', function() {
     var playerOne = new Player("Perry", "X");
     expect(playerOne.mark).to.equal("X");
   });
+
+  it("returns the winner correctlty when all xs same", function() {
+    var board = new Board(Space,9);
+    var player1 = new Player ("Perry", "X", []);
+    player1.addSpace([1,1]);
+    player1.addSpace([1,2]);
+    player1.addSpace([1,3]);
+    expect(player1.isWinner(board)).to.equal(true);
+  });
+
+  it("returns false when xs are different", function() {
+    var board = new Board(Space,9);
+    var player1 = new Player ("Perry", "X", []);
+    player1.addSpace([2,1]);
+    player1.addSpace([1,2]);
+    player1.addSpace([1,3]);
+    expect(player1.isWinner(board)).to.equal(false);
+  });
+
+  it("returns true when ys are same", function() {
+    var board = new Board(Space,9);
+    var player1 = new Player ("Perry", "X", []);
+    player1.addSpace([2,1]);
+    player1.addSpace([1,1]);
+    player1.addSpace([3,1]);
+    expect(player1.isWinner(board)).to.equal(true);
+  });
+
+  it("returns true when xs and ys are same", function() {
+    var board = new Board(Space,9);
+    var player1 = new Player ("Perry", "X", []);
+    player1.addSpace([1,1]);
+    player1.addSpace([2,2]);
+    player1.addSpace([3,3]);
+    expect(player1.isWinner(board)).to.equal(true);
+  });
 });
 
 describe('Space', function() {
