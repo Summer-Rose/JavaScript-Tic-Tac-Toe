@@ -1,16 +1,20 @@
-function Player(name, mark) {
+function Player(name, mark, spacesTaken) {
   this.name = name;
   this.mark = mark;
+  this.spacesTaken = spacesTaken;
 }
 
 Player.prototype.winner = function(){
   //create this later
 }
 
-function Space(coordinateX, coordinateY, player) {
+Player.prototype.addSpace = function(space) {
+  this.spacesTaken.push([space[0], space[1]]);//spacesTaken refuses to be defined
+}
+
+function Space(coordinateX, coordinateY) {
   this.coordinateX = coordinateX;
   this.coordinateY = coordinateY;
-  this.player = player;
 }
 
 Space.prototype.setMark = function (player){
@@ -22,17 +26,27 @@ function Board(space, number) {
   var newBoard = [];
   for(var i = 1; i <= squareRoot; i++) {
     for(var j = 1; j <= squareRoot; j++) {
-      var newSpace = new Space(i,j,0);
+      var newSpace = new Space(i,j);
       newBoard.push(newSpace);
     }
   }
   return newBoard;
 }
 
-Board.prototype.getScores = function (){
+Board.prototype.isWinner = function(player) {
+    for(var i; i < player.spacesTaken.length; i++) {
 
-
+    var xs = []; //create array of x's
+    var ys = [];
+    for (var i = 0; i < player.spacesTaken.length; i++)
+    {
+      xs.push(player.spacesTaken[i][0]) //0 is x value
+      ys.push(player.spacesTaken[i][1]) //1 is y value
+      }
+  }
+  //then compare
 }
+
 
 
 function Game(board, player1, player2) {
