@@ -1,6 +1,6 @@
 describe('Player', function() {
   it("create new instance of player", function() {
-    var playerOne = new Player("Perry", "X");
+    var playerOne = new Player("Perry", "X", []);
     expect(playerOne.name).to.equal("Perry");
   });
 
@@ -12,19 +12,15 @@ describe('Player', function() {
 
 describe('Space', function() {
   it("returns correct coordinates", function() {
-    var space1 = new Space(1,1,0);
+    var space1 = new Space(1,1);
     expect(space1.coordinateX).to.equal(1);
     expect(space1.coordinateY).to.equal(1);
   });
 
-  it("returns which player the space is marked by", function() {
-    var space1 = new Space(1,1,0);
-    expect(space1.player).to.equal(0);
-  });
-
-  it("returns which player the space is marked by", function() {
-    var space1 = new Space(1,1,1);
-    expect(space1.player).to.equal(1);
+  it("adds spaces to list of spaces played by player", function() {
+    var player1 = new Player ("Perry", "X", []);
+    player1.addSpace([1,1]);
+    expect(player1.spacesTaken[0]).to.eql([1,1]);
   });
 });
 
@@ -38,7 +34,6 @@ describe('Board', function() {
     var board = new Board(Space,9);
     expect(board[0].coordinateX).to.equal(1);
     expect(board[0].coordinateY).to.equal(1);
-    expect(board[0].player).to.equal(0);
   });
 });
 
