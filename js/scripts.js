@@ -51,13 +51,6 @@ function Board(space, number) {
   return newBoard;
 }
 
-Board.prototype.findSpace = function(x,y) {
-
-  //create prototype that finds space by its coordinates
-  Board.space.coordinateX
-  return space;
-}
-
 function Game(board, player1, player2, currentPlayer) {
   this.board = board;
   this.player1 = player1;
@@ -72,6 +65,10 @@ Game.prototype.switchPlayer = function() {
     this.currentPlayer = this.player1;
   }
 }
+/////GAME PLAY/////
+
+
+
 
 ////// UI /////////
 $(document).ready( function () {
@@ -79,25 +76,24 @@ $(document).ready( function () {
   $("form#addPlayers").submit( function (event){
     event.preventDefault();
     var player1 = new Player(($("input#player1name").val()), "X", []);
-    console.log(player1);
     var player2 = new Player(($("input#player2name").val()), "O", []);
     $("form#addPlayers").hide();
     $("#gameBoard").show();
 
     var board = new Board(Space, 9);
-    var newGame = new Game(board, player1, player2);
+    var newGame = new Game(board, player1, player2, player1);
+    $("#currentPlayer").text(newGame.currentPlayer.name);
 
-    $(".box").click(function(event) {
+    $(".valid").click(function(event) {
+      //detach eventhandler for valid
+      $(this).removeClass("valid");
       event.preventDefault();
       var boxId = $(this).attr('id');
       var x = parseInt(boxId[0]);
       var y = parseInt(boxId[1]);
-
-      //call prototype that can locate space by coordinates here and add it to player
-
-      console.log(Space);
-      player1.addSpace(x,y);
-      console.log(player1.spacesTaken);
+      newGame.currentPlayer.addSpace(x,y);
+      newGame.switchPlayer();
+      $("#currentPlayer").text(newGame.currentPlayer.name);
     });
   });
 });
