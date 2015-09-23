@@ -1,18 +1,16 @@
-var squareRoot;
-
 function Player(name, mark, spacesTaken) {
   this.name = name;
   this.mark = mark;
   this.spacesTaken = spacesTaken;
 }
 
-Player.prototype.addSpace = function(space) {
-  this.spacesTaken.push([space[0], space[1]]);//spacesTaken refuses to be defined
+Player.prototype.addSpace = function(x,y) {
+  this.spacesTaken.push([x, y]);
 }
 
 Player.prototype.isWinner = function(Board) {
   var xs = []; //create array of x's
-  var ys = [];
+  var ys = []; //create array of ys
     for (var i = 0; i < this.spacesTaken.length; i++) {
       xs.push(this.spacesTaken[i][0]) //0 is x value
       ys.push(this.spacesTaken[i][1]) //1 is y value
@@ -40,10 +38,6 @@ function Space(coordinateX, coordinateY) {
   this.coordinateY = coordinateY;
 }
 
-Space.prototype.setMark = function (player){
-  this.player = player.mark;
-}
-
 function Board(space, number) {
   this.number = number;
   var squareRoot = Math.floor(Math.sqrt(number));
@@ -57,8 +51,44 @@ function Board(space, number) {
   return newBoard;
 }
 
+Board.prototype.findSpace = function(x,y) {
+
+  //create prototype that finds space by its coordinates
+  Board.space.coordinateX
+  return space;
+}
+
 function Game(board, player1, player2) {
   this.board = board;
   this.player1 = player1;
   this.player2 = player2;
 }
+
+////// UI /////////
+$(document).ready( function () {
+
+  $("form#addPlayers").submit( function (event){
+    event.preventDefault();
+    var player1 = new Player(($("input#player1name").val()), "X", []);
+    console.log(player1);
+    var player2 = new Player(($("input#player2name").val()), "O", []);
+    $("form#addPlayers").hide();
+    $("#gameBoard").show();
+
+    var board = new Board(Space, 9);
+    var newGame = new Game(board, player1, player2);
+
+    $(".box").click(function(event) {
+      event.preventDefault();
+      var boxId = $(this).attr('id');
+      var x = parseInt(boxId[0]);
+      var y = parseInt(boxId[1]);
+
+      //call prototype that can locate space by coordinates here and add it to player
+
+      console.log(Space);
+      player1.addSpace(x,y);
+      console.log(player1.spacesTaken);
+    });
+  });
+});
