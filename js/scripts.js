@@ -58,10 +58,19 @@ Board.prototype.findSpace = function(x,y) {
   return space;
 }
 
-function Game(board, player1, player2) {
+function Game(board, player1, player2, currentPlayer) {
   this.board = board;
   this.player1 = player1;
   this.player2 = player2;
+  this.currentPlayer = currentPlayer;
+}
+
+Game.prototype.switchPlayer = function() {
+  if (this.currentPlayer === this.player1) {
+    this.currentPlayer = this.player2;
+  } else {
+    this.currentPlayer = this.player1;
+  }
 }
 
 ////// UI /////////
