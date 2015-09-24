@@ -32,5 +32,17 @@
 
 .symbol{
   font-size:7rem;
-  cursor:not-allowed; 
+  cursor:not-allowed;
+}
+
+.xMark {
+  background-image:url("../img/x.png");
+  background-size:contain;
+  cursor:not-allowed;
+}
+
+.oMark {
+  background-image:url("../img/o.png");
+  background-size:contain;
+  cursor:not-allowed;
 }
