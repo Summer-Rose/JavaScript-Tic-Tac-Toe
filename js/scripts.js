@@ -97,6 +97,11 @@ $(document).ready( function () {
       $(this).removeClass("valid");
       event.preventDefault();
       var boxId = $(this).attr('id');
+      if (newGame.currentPlayer == player1) {
+        $(this).addClass("xMark");
+      } else {
+        $(this).addClass("oMark");
+      }
       var x = parseInt(boxId[0]);
       var y = parseInt(boxId[1]);
       newGame.currentPlayer.addSpace(x,y);
