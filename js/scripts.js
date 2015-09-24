@@ -24,7 +24,8 @@ Player.prototype.isWinner = function(Board) {
     if (xs.reduce(function(a, b){return (a === b)?a:(!b);}) === xs[0] || (ys.reduce(function(a, b){return (a === b)?a:(!b);}) === ys[0])) {
       return true;
     } else if (xString == yString){
-      return true;
+      return true; //there may be extra logic needed here for a game in which a player plays [1,3], [2,2] and [3,1] but the difficulty
+                    //here is to account for the order in which these are played. 
     } else {
       return false;
     }
