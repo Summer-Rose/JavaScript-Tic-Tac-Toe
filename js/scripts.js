@@ -14,8 +14,6 @@ Player.prototype.addSpace = function(x,y) {
 Player.prototype.isWinner = function(Board) {
   var xs = []; //create array of x's
   var ys = []; //create array of ys
-  //var xSorted = xs.sort();
-  //var ySorted = ys.sort();
 
     for (var i = 0; i < this.spacesTaken.length; i++) {
       xs.push(this.spacesTaken[i][0]) //0 is x value
@@ -24,20 +22,36 @@ Player.prototype.isWinner = function(Board) {
 
   var xString = xs.toString();
   var yString = ys.toString();
+
   var yStringReverse = ys.reverse().toString();
   var rowLength = Math.floor(Math.sqrt(Board.length)); //how many need to be in a row to win
+  var spacesTaken = this.spacesTaken.length;
+  if (spacesTaken >= rowLength) {
 
-  if (this.spacesTaken.length == rowLength) {
-    //Need three items in array to match conditions when 9 squares
-    // [1,1,1]
-    // [2,2,2]
-    // [3,3,3]
+      var sameXY = [];
+      for(var i = 0; i < spacesTaken; i++) {
+        debugger;
+        if (this.spacesTaken[i][0] == this.spacesTaken[i][1]) {
+          sameXY.push(this.spacesTaken[i]);
+        }
+      }
+      if (sameXY.length == 3) {
+        return true;
+      }
 
+    debugger;
+    var xSorted = xs.sort();
+    var ySorted = ys.sort();
+
+    for (var i = 0; i < xs.length; i++) {
+        if (xSorted[i] == xSorted[i + 1] && xSorted[i + 1]== xSorted[i + 2] ) {
+          return true;
+        }
+        if (ySorted[i] == ySorted[i + 1] && ySorted[i + 1]== ySorted[i + 2] ) {
+          return true;
+        }
+      }
     if (xs.reduce(function(a, b){return (a === b)?a:(!b);}) === xs[0] || (ys.reduce(function(a, b){return (a === b)?a:(!b);}) === ys[0])) {
-      return true;
-    } else if (xString === yString){
-      console.log("x" + xString);
-      console.log("y" + yString);
       return true;
     } else if (yStringReverse == xString){
       return true;
@@ -107,31 +121,44 @@ Game.prototype.reset = function() {
   });
 
     $("#playAgain").click( function (event){
-      console.log("newgame!");
-      playAgain();
       $("form#addPlayers").hide();
       $("#gameBoard").show();
+      clearBoard();
+      playAgain();
     });
 
     $("#newPlayers").click( function (event){
-      $(".box").addClass("valid");
-      $(".box").removeClass("xMark");
-      $(".box").removeClass("oMark");
-      newGame.reset();
+      clearBoard();
       $("form#addPlayers").show();
       $("#gameBoard").hide();
     });
 
-  function playAgain() {
-
+  function clearBoard() {
     $(".box").addClass("valid");
     $(".box").removeClass("oMark");
     $(".box").removeClass("xMark");
     newGame.reset();
+  }
+
+  function checkForWinner() {
+    if (newGame.currentPlayer.isWinner(board)) {
+      $(".valid").removeClass("valid").off();
+      $('#winnerName').text(newGame.currentPlayer.name + " wins!");
+       $('.modal-body').html("<h2>WooHoo</h2>");
+      $("#winnerModal").modal("show");
+    } else if (newGame.currentPlayer.spacesTaken.length == 5) {
+       $('#winnerName').text("Cat's Game!!");
+       $('.modal-body').html("<img src='img/catsgame.jpg'>");
+      $("#winnerModal").modal("show");
+    }
+  }
+
+  function playAgain() {
     $("#currentPlayer").text(newGame.currentPlayer.name);
         $(".valid").on("click", function(event) {
           $(this).removeClass("valid").off();
           event.preventDefault();
+
           var boxId = $(this).attr('id');
           if (newGame.currentPlayer == player1) {
             $(this).addClass("xMark");
@@ -141,21 +168,16 @@ Game.prototype.reset = function() {
           var x = parseInt(boxId[0]);
           var y = parseInt(boxId[1]);
           newGame.currentPlayer.addSpace(x,y);
-          if (newGame.currentPlayer.isWinner(board)) {
-            $(".valid").removeClass("valid").off();
-            $('#winnerName').text(newGame.currentPlayer.name);
-            $("#winnerModal").modal("show");
-          }
-        newGame.switchPlayer();
-        $("#currentPlayer").text(newGame.currentPlayer.name);
-  });
-}
+          checkForWinner();
+          newGame.switchPlayer();
+          $("#currentPlayer").text(newGame.currentPlayer.name);
+        });
+      }
 
   function newGamePlay() {
     board = new Board(Space, 9);
     newGame = new Game(board, player1, player2, player1);
     $("#currentPlayer").text(newGame.currentPlayer.name);
-    debugger;
         $(".valid").on("click", function(event) {
           $(this).removeClass("valid").off();
           event.preventDefault();
@@ -163,19 +185,13 @@ Game.prototype.reset = function() {
 
           if (newGame.currentPlayer === player1) {
             $(this).addClass("xMark");
-            console.log("name:" + newGame.currentPlayer.name);
           } else {
             $(this).addClass("oMark");
-            console.log("name:" + newGame.currentPlayer.name);
           }
           var x = parseInt(boxId[0]);
           var y = parseInt(boxId[1]);
           newGame.currentPlayer.addSpace(x,y);
-          if (newGame.currentPlayer.isWinner(board)) {
-            $(".valid").removeClass("valid").off();
-            $('#winnerName').text(newGame.currentPlayer.name);
-            $("#winnerModal").modal("show");
-          }
+          checkForWinner();
         newGame.switchPlayer();
         $("#currentPlayer").text(newGame.currentPlayer.name);
       });
