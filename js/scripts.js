@@ -6,6 +6,9 @@ function Player(name, mark, spacesTaken) {
 
 Player.prototype.addSpace = function(x,y) {
   this.spacesTaken.push([x, y]);
+  this.spacesTaken.sort(function(a,b) {
+    return a[0] - b[0];
+  });
 }
 
 Player.prototype.isWinner = function(Board) {
@@ -19,16 +22,20 @@ Player.prototype.isWinner = function(Board) {
   var xString = xs.toString();
   var yString = ys.toString();
 
+  var yStringReverse = ys.reverse().toString();
+
   var rowLength = Math.floor(Math.sqrt(Board.length)); //how many need to be in a row to win
   if (this.spacesTaken.length == rowLength) {
     if (xs.reduce(function(a, b){return (a === b)?a:(!b);}) === xs[0] || (ys.reduce(function(a, b){return (a === b)?a:(!b);}) === ys[0])) {
       return true;
     } else if (xString == yString){
-      return true;  //there may be extra logic needed here for a game in which a player plays [1,3], [2,2] and [3,1] but the difficulty
-                    //here is to account for the order in which these are played.
+      return true;
+    } else if (yStringReverse == xString){
+      return true;
     } else {
       return false;
     }
+
   } else {
     return false;
   }
@@ -93,6 +100,7 @@ $(document).ready( function () {
       var x = parseInt(boxId[0]);
       var y = parseInt(boxId[1]);
       newGame.currentPlayer.addSpace(x,y);
+      console.log(newGame.currentPlayer.spacesTaken);
       newGame.switchPlayer();
       $("#currentPlayer").text(newGame.currentPlayer.name);
     });
