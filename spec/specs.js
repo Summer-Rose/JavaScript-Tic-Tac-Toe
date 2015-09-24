@@ -44,6 +44,24 @@ describe('Player', function() {
     player1.addSpace(3,3);
     expect(player1.isWinner(board)).to.equal(true);
   });
+
+  it("returns true when a player plays from the top right to lower left corner", function() {
+    var board = new Board(Space,9);
+    var player1 = new Player ("Perry", "X", []);
+    player1.addSpace(2,2);
+    player1.addSpace(3,1);
+    player1.addSpace(1,3);
+    expect(player1.isWinner(board)).to.equal(true);
+  });
+
+  it("sorts the spaces held by a player by x value", function() {
+    var board = new Board(Space,9);
+    var player1 = new Player ("Perry", "X", []);
+    player1.addSpace(2,1);
+    player1.addSpace(3,3);
+    player1.addSpace(1,3);
+    expect(player1.spacesTaken).to.eql([[1,3],[2,1],[3,3]]);
+  });
 });
 
 describe('Space', function() {
