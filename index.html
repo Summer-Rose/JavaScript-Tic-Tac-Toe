@@ -4,8 +4,6 @@
     <meta charset=utf-8 />
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="css/styles.css" rel="stylesheet" type="text/css">
-    <script src="js/jquery-1.11.3.js"></script>
-    <script src="js/scripts.js"></script>
     <title>PLAY A GAME O' : TIC TAC TOE</title>
   </head>
   <body>
@@ -47,11 +45,32 @@
                     <div id="33" class="col-lg-4 col-sm-4 col-4 box valid"></div>
                   </div>
               </div>
+
             </div>
+              <div class="modal fade" id="winnerModal" tabindex="-1" role="dialog" aria-labelledby="winnerModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel"><span id="winnerName"></span> Wins</h4>
+                    </div>
+                    <div class="modal-body">
+                      <h1>WOOHOO!!</h1>
+                    </div>
+                    <div class="modal-footer">
+                      <a  class="btn btn-primary" id="playAgain" data-dismiss="modal">Play Again!</a>
+                      <a  class="btn btn-primary" id="newPlayers" data-dismiss="modal">Switch Users</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
           </div>
           </div>
         </div>
       </div>
     </div>
+    <script src="js/jquery-1.11.3.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
   </body>
 </html>
